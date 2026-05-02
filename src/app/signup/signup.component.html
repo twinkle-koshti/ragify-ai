@@ -1,0 +1,152 @@
+<div class="auth-page">
+  <div class="split-container">
+
+    <!-- LEFT SIDE – Form + branding -->
+    <div class="left-panel">
+      <div class="auth-card">
+        <h2 class="card-title">Create Account</h2>
+        <p class="card-subtitle">Join RAGify Conversation</p>
+
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate class="login-form">
+
+          <div class="form-field">
+            <input 
+              type="text" 
+              placeholder="Full Name" 
+              name="name"
+              [(ngModel)]="user.name"
+              required
+              pattern="{{namePattern}}"
+              [ngClass]="{ 'invalid': f.controls['name']?.invalid && f.controls['name']?.touched }"
+              class="form-input"
+              autocomplete="name" />
+
+            <div class="field-error" *ngIf="f.controls['name']?.invalid && f.controls['name']?.touched">
+              Enter a valid name (min 3 letters)
+            </div>
+          </div>
+
+          <div class="form-field">
+            <input 
+              type="email" 
+              placeholder="Email address" 
+              name="email"
+              [(ngModel)]="user.email"
+              required
+              [ngClass]="{ 'invalid': f.controls['email']?.invalid && f.controls['email']?.touched }"
+              class="form-input"
+              autocomplete="email" />
+
+            <div class="field-error" *ngIf="f.controls['email']?.invalid && f.controls['email']?.touched">
+              Please enter a valid email
+            </div>
+          </div>
+
+          <div class="form-field">
+            <input 
+              type="text" 
+              placeholder="Mobile Number" 
+              name="mobile"
+              [(ngModel)]="user.mobile"
+              required
+              pattern="{{phonePattern}}"
+              [ngClass]="{ 'invalid': f.controls['mobile']?.invalid && f.controls['mobile']?.touched }"
+              class="form-input"
+              autocomplete="tel" />
+
+            <div class="field-error" *ngIf="f.controls['mobile']?.invalid && f.controls['mobile']?.touched">
+              Please enter a valid 10-digit number
+            </div>
+          </div>
+
+          <div class="form-field password-wrapper">
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              placeholder="Password" 
+              name="password"
+              [(ngModel)]="user.password"
+              required
+              pattern="{{passwordPattern}}"
+              [ngClass]="{ 'invalid': f.controls['password']?.invalid && f.controls['password']?.touched }"
+              class="form-input" />
+
+            <button 
+              type="button" 
+              class="password-toggle"
+              (click)="togglePassword()">
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+
+            <div class="field-error" *ngIf="f.controls['password']?.invalid && f.controls['password']?.touched">
+              Min 8 chars with uppercase, lowercase, number & symbol
+            </div>
+          </div>
+
+          <div class="form-field password-wrapper">
+            <input 
+              [type]="showConfirmPassword ? 'text' : 'password'" 
+              placeholder="Confirm Password" 
+              name="confirmPassword"
+              [(ngModel)]="user.confirmPassword"
+              required
+              [ngClass]="{ 'invalid': user.confirmPassword && user.password !== user.confirmPassword }"
+              class="form-input" />
+
+            <button 
+              type="button" 
+              class="password-toggle"
+              (click)="toggleConfirmPassword()">
+              {{ showConfirmPassword ? 'Hide' : 'Show' }}
+            </button>
+
+            <div class="field-error" *ngIf="user.confirmPassword && user.password !== user.confirmPassword">
+              Passwords do not match
+            </div>
+          </div>
+
+          <button 
+            type="submit" 
+            class="submit-btn main"
+            [disabled]="loading || f.invalid || user.password !== user.confirmPassword">
+            {{ loading ? 'Creating...' : 'Create Account' }}
+          </button>
+
+        </form>
+
+        <p class="signup-link">
+          Already have an account? 
+          <a routerLink="/login">Sign In</a>
+        </p>
+
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE – Dynamic chat visualization -->
+    <div class="right-panel">
+      <div class="visual-wrapper">
+        <video 
+          autoplay
+          muted
+          loop
+          playsinline
+          class="chat-video"
+          loading="eager"
+          preload="auto">
+
+          <source src="assets/img/ai-chat-animation1.mp4" type="video/mp4">
+
+          <img 
+            src="assets/images/ai-chat-fallback.gif" 
+            alt="AI conversation animation" 
+            class="chat-fallback" />
+        </video>
+
+        <div class="visual-overlay">
+          <div class="pulse-dot"></div>
+          <span>Always listening, always thinking...</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,362 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #0a0a15;
+  color: #e0e0ff;
+  overflow: hidden;
+}
+
+/* Animated background */
+.auth-page {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(-45deg, #0f0720, #120a2e, #0a1a3f, #1a0f2e);
+  background-size: 400% 400%;
+  animation: gradientShift 24s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ────────────────────────────────────────
+   Layout
+──────────────────────────────────────── */
+.split-container {
+  display: flex;
+  height: 100%;
+}
+
+.left-panel, .right-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.left-panel {
+  background: rgba(15, 15, 40, 0.72);
+  backdrop-filter: blur(16px);
+  border-right: 1px solid rgba(100, 100, 255, 0.12);
+}
+
+.right-panel {
+  background: rgba(8, 8, 28, 0.55);
+  position: relative;
+}
+
+/* Mobile → stack vertically */
+@media (max-width: 1024px) {
+  .split-container { flex-direction: column; }
+  .right-panel { flex: none; height: 38vh; min-height: 300px; }
+  .left-panel  { flex: 1; padding: 32px 20px; }
+}
+
+/* Branding */
+.brand-section {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.brand-logo {
+  font-size: 3.4rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #c084fc, #8b5cf6, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 8px;
+  letter-spacing: -1px;
+}
+
+.brand-tagline {
+  font-size: 1.15rem;
+  color: #a5b4fc;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Card */
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(20, 20, 55, 0.65);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(120, 120, 255, 0.16);
+  border-radius: 24px;
+  padding: 40px 36px;
+  box-shadow: 0 20px 70px rgba(0,0,0,0.55);
+}
+
+.card-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  text-align: center;
+  color: #f1f5ff;
+  margin: 0 0 8px;
+}
+
+.card-subtitle {
+  text-align: center;
+  color: #c7d2fe;
+  margin: 0 0 32px;
+  font-size: 1.05rem;
+}
+
+/* Toggles */
+.role-toggle, .method-toggle {
+  display: flex;
+  background: rgba(30, 30, 70, 0.5);
+  border-radius: 12px;
+  padding: 5px;
+  margin-bottom: 28px;
+}
+
+.role-btn, .method-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #c7d2fe;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.22s;
+}
+
+.role-btn.active, .method-btn.active {
+  background: linear-gradient(90deg, #7c3aed, #60a5fa);
+  color: white;
+  box-shadow: 0 4px 16px rgba(96, 165, 250, 0.35);
+}
+
+/* Form elements */
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(30, 30, 65, 0.7);
+  border: 1px solid rgba(140, 140, 255, 0.22);
+  border-radius: 12px;
+  color: white;
+  font-size: 1.02rem;
+  transition: all 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color:rgba(17, 38, 172, 0.5);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.22);
+}
+
+.form-input::placeholder {
+  color: #94a3ff88;
+}
+
+.form-field {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #a5b4fc;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.field-error {
+  color: rgba(17, 38, 172, 0.5);
+  font-size: 0.82rem;
+  margin-top: 6px;
+}
+
+.forgot-link {
+  display: block;
+  text-align: right;
+  color: #a5b4fc;
+  font-size: 0.9rem;
+  margin: -8px 0 24px;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  color: rgba(17, 38, 172, 0.5);
+  text-decoration: underline;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.main {
+  background: linear-gradient(90deg, #7c3aed, #60a5fa);
+  color: white;
+}
+
+.main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(96, 165, 250, 0.4);
+}
+
+.google {
+  background: rgba(17, 38, 172, 0.5);
+  border: 1px solid rgba(140,140,255,0.3);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.google-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.or-divider {
+  text-align: center;
+  color: #94a3ff;
+  margin: 16px 0;
+  font-size: 0.9rem;
+}
+
+/* .or-divider span {
+  background: rgba(17, 38, 172, 0.5);
+  padding: 0 16px;
+} */
+
+.signup-link {
+  text-align: center;
+  margin-top: 24px;
+  color: #c7d2fe;
+  font-size: 0.95rem;
+}
+
+.signup-link a {
+  color: #c084fc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* ────────────────────────────────────────
+   RIGHT SIDE – Chat visualization
+──────────────────────────────────────── */
+/* ... keep all previous styles ... */
+
+/* RIGHT SIDE – Chat visualization */
+.visual-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;           /* prevent overflow on scale/resize */
+  background: rgba(8, 8, 28, 0.4); /* subtle fallback color */
+}
+
+.chat-video,
+.chat-fallback {
+  width: 100%;
+  height: 100%;
+  max-width: 520px;
+  max-height: 90vh;             /* better mobile constraint */
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(17, 38, 172, 0.5);
+  object-fit: contain;          /* or 'cover' — test what fits your video better */
+  background: transparent;
+}
+
+/* Make fallback image same size/behavior */
+.chat-fallback {
+  display: none;                /* hide by default — show only on error if you add JS */
+}
+
+/* Optional: subtle loading state */
+.visual-wrapper::before {
+  content: "Loading animation...";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(17, 38, 172, 0.5);
+  font-size: 1rem;
+  opacity: 0.6;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.6s;
+}
+
+.chat-video:playing ~ .visual-wrapper::before {
+  opacity: 0;
+}
+
+/* Pulse overlay – keep but make it less intrusive on small screens */
+.visual-overlay {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  padding: 10px 24px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #c7d2fe;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+@media (max-width: 1024px) {
+  .visual-overlay {
+    font-size: 0.9rem;
+    padding: 8px 20px;
+    bottom: 10%;
+  }
+}
+
+/* Pulse animation */
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  background: #60a5fa;
+  border-radius: 50%;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.5); opacity: 0.5; }
+}

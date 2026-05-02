@@ -1,0 +1,247 @@
+```html
+<div class="auth-page">
+  <div class="split-container">
+
+    <!-- LEFT SIDE – Form + branding -->
+    <div class="left-panel">
+
+      <div class="auth-card">
+        <h2 class="card-title">Sign In</h2>
+        <p class="card-subtitle">Continue your conversation</p>
+
+        <!-- Role selector -->
+        <div class="role-toggle">
+          <button 
+            class="role-btn" 
+            [class.active]="loginRole === 'user'" 
+            (click)="loginRole = 'user'">
+            User
+          </button>
+          <button 
+            class="role-btn" 
+            [class.active]="loginRole === 'admin'" 
+            (click)="loginRole = 'admin'">
+            Admin
+          </button>
+        </div>
+
+        <!-- USER LOGIN -->
+        <ng-container *ngIf="loginRole === 'user'">
+
+          <div class="method-toggle">
+            <button 
+              class="method-btn" 
+              [class.active]="loginType === 'password'" 
+              (click)="loginType = 'password'">
+              Password
+            </button>
+            <button 
+              class="method-btn" 
+              [class.active]="loginType === 'google'" 
+              (click)="loginType = 'google'">
+              Google
+            </button>
+          </div>
+
+          <!-- Password login -->
+          <form *ngIf="loginType === 'password'" class="login-form">
+
+            <div class="form-field">
+              <input 
+                type="tel" 
+                name="phone"
+                placeholder="Phone number" 
+                [(ngModel)]="phone"
+                [ngClass]="{ 'invalid': phoneInvalid }"
+                class="form-input"
+                autocomplete="tel" />
+              <div class="field-error" *ngIf="phoneInvalid">
+                Please enter a valid 10-digit number
+              </div>
+            </div>
+
+            <div class="form-field password-wrapper">
+              <input 
+                [type]="showPassword ? 'text' : 'password'" 
+                name="password"
+                placeholder="Password" 
+                [(ngModel)]="password"
+                [ngClass]="{ 'invalid': passwordInvalid }"
+                class="form-input" />
+              <button 
+                type="button" 
+                class="password-toggle"
+                (click)="togglePassword()">
+                {{ showPassword ? 'Hide' : 'Show' }}
+              </button>
+              <div class="field-error" *ngIf="passwordInvalid">
+                Password must be at least 6 characters
+              </div>
+            </div>
+
+            <a routerLink="/forgot-password" class="forgot-link">
+              Forgot password?
+            </a>
+
+            <button 
+              type="button" 
+              class="submit-btn main"
+              (click)="loginWithPassword()">
+              Sign In
+            </button>
+          </form>
+
+          <!-- Google / Email OTP login -->
+          <div *ngIf="loginType === 'google'" class="login-form">
+
+            <button 
+              class="submit-btn google"
+              (click)="loginWithGooglePopup()">
+              <img src="assets/img/google-icon.png" alt="Google" class="google-icon" />
+              Continue with Google
+            </button>
+
+            <div class="or-divider">
+              <span>or</span>
+            </div>
+
+            <div class="form-field">
+              <input 
+                type="email" 
+                name="email"
+                placeholder="Email address" 
+                [(ngModel)]="email"
+                [ngClass]="{ 'invalid': emailInvalid }"
+                [disabled]="otpSent || otpLoading"
+                class="form-input" />
+              <div class="field-error" *ngIf="emailInvalid">
+                Please enter a valid email
+              </div>
+            </div>
+
+            <ng-container *ngIf="otpSent; else sendOtp">
+
+              <div class="form-field">
+                <input 
+                  type="text" 
+                  name="otp"
+                  placeholder="Enter OTP" 
+                  [(ngModel)]="otp"
+                  class="form-input" />
+              </div>
+
+              <button 
+                class="submit-btn main"
+                (click)="verifyEmailOtp()">
+                Verify OTP
+              </button>
+
+            </ng-container>
+
+            <ng-template #sendOtp>
+
+              <button 
+                class="submit-btn secondary"
+                [disabled]="otpLoading"
+                (click)="sendEmailOtp()">
+                {{ otpLoading ? 'Sending…' : 'Send OTP' }}
+              </button>
+
+            </ng-template>
+
+          </div>
+
+          <p class="signup-link">
+            Don't have an account? 
+            <a routerLink="/signup">Sign up</a>
+          </p>
+
+        </ng-container>
+
+        <!-- ADMIN LOGIN -->
+        <ng-container *ngIf="loginRole === 'admin'">
+
+          <form class="login-form">
+
+            <div class="form-field">
+              <input 
+                type="email" 
+                name="adminEmail"
+                placeholder="Admin email" 
+                [(ngModel)]="adminEmail"
+                [ngClass]="{ 'invalid': adminEmailInvalid }"
+                class="form-input" />
+              <div class="field-error" *ngIf="adminEmailInvalid">
+                Please enter a valid email
+              </div>
+            </div>
+
+            <div class="form-field password-wrapper">
+              <input 
+                [type]="showPassword ? 'text' : 'password'" 
+                name="adminPassword"
+                placeholder="Admin password" 
+                [(ngModel)]="adminPassword"
+                [ngClass]="{ 'invalid': adminPasswordInvalid }"
+                class="form-input" />
+
+              <button 
+                type="button" 
+                class="password-toggle"
+                (click)="togglePassword()">
+                {{ showPassword ? 'Hide' : 'Show' }}
+              </button>
+
+              <div class="field-error" *ngIf="adminPasswordInvalid">
+                Password must be at least 6 characters
+              </div>
+            </div>
+
+            <button 
+              type="button" 
+              class="submit-btn main"
+              (click)="loginAdmin()">
+              Admin Sign In
+            </button>
+
+          </form>
+
+        </ng-container>
+
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE – Dynamic chat visualization -->
+    <div class="right-panel">
+      <div class="visual-wrapper">
+
+        <video 
+          #chatVideo
+          autoplay
+          muted
+          loop
+          playsinline
+          class="chat-video"
+          loading="eager"
+          preload="auto">
+
+          <source src="assets/img/ai-chat-animation1.mp4" type="video/mp4">
+
+          <img 
+            src="assets/images/ai-chat-fallback.gif" 
+            alt="AI conversation animation fallback" 
+            class="chat-fallback" />
+
+        </video>
+
+        <div class="visual-overlay">
+          <div class="pulse-dot"></div>
+          <span>Always listening, always thinking...</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+```
