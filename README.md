@@ -231,7 +231,8 @@ Discover top relevant research papers based on user queries.
 Flexible pricing plans with upgrade options for advanced features.
 <img width="1600" height="868" alt="image" src="https://github.com/user-attachments/assets/c10c1cf6-62a3-48a9-b4b5-306054e6396a" />
 
+# Author
+Developed by Twinkle Koshti
 
-
-# MainProject
+AI/ML Engineer | Full Stack Developer
 
