@@ -192,5 +192,46 @@ RAG backend runs at `http://localhost:5001`.
   - **Backend**: update numeric checks in `rag-backend/app.py`.
   - **Frontend**: update copy in `home.component.html` and `payment.component.ts`.
 
+# 📸 Screenshots
+🚀 A glimpse of the AI-powered research and learning experience provided by RAGify.
+
+🏠 Home Interface
+Clean and intuitive dashboard for navigating features and accessing tools.
+<img width="1600" height="849" alt="image" src="https://github.com/user-attachments/assets/c3fe4392-81a8-4ff5-b962-3e646ca0ab0e" />
+
+🔐 User Authentication
+Secure login and signup system with role-based access.
+<img width="1600" height="859" alt="image" src="https://github.com/user-attachments/assets/a7a5fd3f-71e6-48d0-a82a-8a5bfee24535" />
+<img width="1600" height="857" alt="image" src="https://github.com/user-attachments/assets/aab70792-1945-410b-8550-722335cbb0f2" />
+
+💬 PDF Chat (RAG Q&A)
+Interact with uploaded documents using context-aware question answering.
+<img width="1600" height="907" alt="image" src="https://github.com/user-attachments/assets/c52d8b93-707f-48d3-9b36-383eb26fdb66" />
+
+📝 AI Summary Generation
+Automatically generate concise summaries from PDF content.
+<img width="1600" height="858" alt="image" src="https://github.com/user-attachments/assets/71775b18-6758-4ace-963f-058c84a9d795" />
+
+🧠 Flashcard Generation
+Convert study material into interactive flashcards for better learning.
+
+❓ MCQ Generation
+Generate multiple-choice questions for practice and assessment.
+<img width="1600" height="862" alt="image" src="https://github.com/user-attachments/assets/f6734ddf-8a3b-44c5-bc34-f6e8fa31ed0f" />
+
+✍️ AI Research Assistant (Rewrite & Brainstorm)
+Enhance research workflow with rewriting, idea generation, and content refinement.
+<img width="1600" height="859" alt="image" src="https://github.com/user-attachments/assets/08e1fb75-093e-4267-9bed-fb18d0f1b7a3" />
+
+🔍 Research Paper Search
+Discover top relevant research papers based on user queries.
+<img width="1600" height="861" alt="image" src="https://github.com/user-attachments/assets/7ff558b2-0c55-4d20-9cef-91c6c00581c4" />
+
+💳 Subscription Plans
+Flexible pricing plans with upgrade options for advanced features.
+<img width="1600" height="868" alt="image" src="https://github.com/user-attachments/assets/c10c1cf6-62a3-48a9-b4b5-306054e6396a" />
+
+
+
 # MainProject
 
